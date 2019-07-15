@@ -1,5 +1,4 @@
 import React from "react"
-import PropTypes from "prop-types"
 import { Link as GatsbyLink, navigate as gatsbyNavigate } from "gatsby"
 import { IntlContextConsumer } from "./intl-context"
 
@@ -26,12 +25,6 @@ const Link = ({ to, language, children, onClick, ...rest }) => (
     }}
   </IntlContextConsumer>
 )
-
-Link.propTypes = {
-  children: PropTypes.node.isRequired,
-  to: PropTypes.string,
-  language: PropTypes.string,
-}
 
 Link.defaultProps = {
   to: "",

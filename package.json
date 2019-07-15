@@ -10,14 +10,19 @@
     "@babel/runtime": "^7.4.5",
     "browser-lang": "^0.1.0",
     "intl": "^1.2.5",
-    "react-langapi": "^1.0.9"
+    "react-langapi": "^1.0.11"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
-    "babel-preset-gatsby-package": "^0.2.0",
+    "babel-plugin-transform-remove-strict-mode": "^0.0.2",
+    "babel-preset-gatsby-package": "^0.2.2",
+    "langapi-client": "^1.4.10",
     "prettier": "^1.18.2",
-    "rimraf": "^2.6.3"
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
+    "rimraf": "^2.6.3",
+    "webpack": "^4.35.3"
   },
   "homepage": "https://github.com/cyrieu/gatsby-plugin-lang",
   "keywords": [
@@ -25,13 +30,15 @@
     "gatsby-plugin",
     "gatsby-plugin-intl",
     "i18n",
-    "intl",
-    "react-intl"
+    "intl"
   ],
   "license": "MIT",
   "main": "index.js",
   "peerDependencies": {
-    "gatsby": "^2.0.0"
+    "gatsby": "^2.0.0",
+    "langapi-client": "^1.4.10",
+    "react": "^16.8.2",
+    "webpack": "^4.35.3"
   },
   "repository": "https://github.com/cyrieu/gatsby-plugin-lang",
   "scripts": {

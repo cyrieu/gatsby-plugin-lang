@@ -47,10 +47,8 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
 
   const getMessages = (path, language) => {
     try {
-      // TODO load yaml here
-      const messages = require(`${path}/${language}.json`)
-      //
-      return flattenMessages(messages)
+      const messages = require(`${path}/translations.json`)
+      return messages
     } catch (err) {
       return {}
     }

@@ -1,38 +1,41 @@
 import React from "react"
 import browserLang from "browser-lang"
 import { withPrefix } from "gatsby"
-import { IntlProvider, addLocaleData } from "react-intl"
 import { IntlContextProvider } from "./intl-context"
+import { LangProvider } from "react-langapi"
 
 const preferDefault = m => (m && m.default) || m
 
-const getLocaleData = locale => {
-  try {
-    const localeData = require(`react-intl/locale-data/${locale}`)
+// const getLocaleData = locale => {
+//   try {
+//     const localeData = require(`react-intl/locale-data/${locale}`)
 
-    return localeData
-  } catch (e) {
-    return false
-  }
-}
+//     return localeData
+//   } catch (e) {
+//     return false
+//   }
+// }
 
-const addLocaleDataForGatsby = language => {
-  const locale = language.split("-")[0]
-  const localeData = getLocaleData(locale)
+// const addLocaleDataForGatsby = language => {
+//   const locale = language.split("-")[0]
+//   const localeData = getLocaleData(locale)
 
-  if (!localeData) {
-    throw new Error(`Cannot find react-intl/locale-data/${language}`)
-  }
+//   if (!localeData) {
+//     throw new Error(`Cannot find react-intl/locale-data/${language}`)
+//   }
 
-  addLocaleData(...localeData)
-}
+//   addLocaleData(...localeData)
+// }
 
 const withIntlProvider = intl => children => {
-  addLocaleDataForGatsby(intl.language)
+  // addLocaleDataForGatsby(intl.language)
+
+  const { client } = intl
+  client.setForceLanguage(intl.language)
   return (
-    <IntlProvider locale={intl.language} messages={intl.messages}>
+    <LangProvider client={client} currentLanguage={intl.language}>
       <IntlContextProvider value={intl}>{children}</IntlContextProvider>
-    </IntlProvider>
+    </LangProvider>
   )
 }
 
@@ -43,13 +46,13 @@ export default ({ element, props }) => {
 
   const { pageContext, location } = props
   const { intl } = pageContext
-  const {
-    language,
-    languages,
-    redirect,
-    routed,
-    allSitePage,
-  } = intl
+  const { language, languages, redirect, routed, allSitePage, messages } = intl
+
+  // Create langapi-client
+  const client = require("langapi-client")(
+    "sk_prod_test", // TODO pass it in as part of config
+    messages
+  )
 
   if (typeof window !== "undefined") {
     window.___gatsbyIntl = intl
@@ -91,5 +94,5 @@ export default ({ element, props }) => {
         preferDefault(require(GATSBY_INTL_REDIRECT_COMPONENT_PATH))
       )
     : element
-  return withIntlProvider(intl)(renderElement)
+  return withIntlProvider({ ...intl, client })(renderElement)
 }
