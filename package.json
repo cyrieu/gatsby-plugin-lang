@@ -1,7 +1,7 @@
 {
   "name": "gatsby-plugin-lang",
   "description": "Gatsby plugin to add Lang onto a site",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "author": "Eric Yu <cyrieu@gmail.com>",
   "bugs": {
     "url": "https://github.com/cyrieu/gatsby-plugin-lang"
