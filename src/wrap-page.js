@@ -85,11 +85,6 @@ export default ({ element, props }) => {
 
     // Skip build, Browsers only
     if (typeof window !== "undefined") {
-      let detected = browserLang({
-        languages,
-        fallback: language,
-      })
-
       if (!languages.includes(detected)) {
         detected = language
       }
