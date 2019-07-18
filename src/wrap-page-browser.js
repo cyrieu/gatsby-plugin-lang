@@ -33,11 +33,7 @@ const withIntlProvider = intl => children => {
   const { client, translationsPath } = intl
   client.setForceLanguage(intl.language)
   return (
-    <LangProvider
-      client={client}
-      currentLanguage={intl.language}
-      path={translationsPath}
-    >
+    <LangProvider client={client} currentLanguage={intl.language}>
       <IntlContextProvider value={intl}>{children}</IntlContextProvider>
     </LangProvider>
   )
