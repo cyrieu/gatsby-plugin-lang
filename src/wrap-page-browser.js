@@ -43,7 +43,7 @@ const withIntlProvider = intl => children => {
   )
 }
 
-export default ({ element, props }) => {
+export default ({ element, props }, pluginOptions) => {
   if (!props) {
     return
   }
@@ -60,9 +60,9 @@ export default ({ element, props }) => {
     defaultLanguage,
   } = intl
 
-  // Create langapi-client
+  // Create langapi-client for SSR
   const client = require("langapi-client")(
-    "sk_prod_test", // TODO pass it in as part of config
+    "sk_prod_test", // TODO pass it in as part of config when we start using the API_KEY
     messages
   )
 

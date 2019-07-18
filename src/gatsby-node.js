@@ -1,20 +1,5 @@
 const webpack = require("webpack")
 
-function flattenMessages(nestedMessages, prefix = "") {
-  return Object.keys(nestedMessages).reduce((messages, key) => {
-    let value = nestedMessages[key]
-    let prefixedKey = prefix ? `${prefix}.${key}` : key
-
-    if (typeof value === "string") {
-      messages[prefixedKey] = value
-    } else {
-      Object.assign(messages, flattenMessages(value, prefixedKey))
-    }
-
-    return messages
-  }, {})
-}
-
 exports.onCreateWebpackConfig = ({ actions, plugins }, pluginOptions) => {
   const { redirectComponent = null, languages, defaultLanguage } = pluginOptions
   if (!languages.includes(defaultLanguage)) {
@@ -45,11 +30,16 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     redirect = false,
   } = pluginOptions
 
+  const translationsPath = `${path}/translations.json`
+
   const getMessages = (path, language) => {
     try {
-      const messages = require(`${path}/translations.json`)
+      const messages = require(translationsPath)
       return messages
     } catch (err) {
+      console.error(
+        "We couldn't find your translations.json in: " + translationsPath
+      )
       return {}
     }
   }
@@ -71,6 +61,8 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
           originalPath: page.path,
           redirect,
           allSitePage,
+          defaultLanguage,
+          translationsPath,
         },
       },
     }
